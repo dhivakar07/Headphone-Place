@@ -13,9 +13,12 @@ function Cart() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
         if (!user) return;
-        const res = await axios.post("http://localhost:3000/cart", {
-          userId: user.uid,
-        });
+        const res = await axios.post(
+          "https://headphone-place.vercel.app/cart",
+          {
+            userId: user.uid,
+          },
+        );
         setcartdetails(res.data);
         console.log("Cart items:", res.data);
       } catch (err) {
@@ -35,7 +38,9 @@ function Cart() {
   //handleInc
   const handleInc = async (id) => {
     try {
-      const res = await axios.put(`http://localhost:3000/cart/inc/${id}`);
+      const res = await axios.put(
+        `https://headphone-place.vercel.app/cart/inc/${id}`,
+      );
       setcartdetails((prev) =>
         prev.map((item) =>
           item._id === id
@@ -51,7 +56,9 @@ function Cart() {
   //handleDec
   const handleDec = async (id) => {
     try {
-      const res = await axios.put(`http://localhost:3000/cart/dec/${id}`);
+      const res = await axios.put(
+        `https://headphone-place.vercel.app/cart/dec/${id}`,
+      );
       setcartdetails((prev) =>
         prev.map((item) =>
           item._id === id
@@ -67,7 +74,9 @@ function Cart() {
   //handleRemove
   const handleRemove = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:3000/cart/remove/${id}`);
+      const res = await axios.delete(
+        `https://headphone-place.vercel.app/cart/remove/${id}`,
+      );
       alert("Item removed from cart!");
       console.log(res.data);
       setcartdetails((prev) => prev.filter((item) => item._id !== id));

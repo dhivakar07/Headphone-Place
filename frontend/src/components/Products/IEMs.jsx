@@ -25,7 +25,9 @@ function IEMs() {
   useEffect(() => {
     const getproduct = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/products/IEMs");
+        const res = await axios.get(
+          "https://headphone-place.vercel.app/products/IEMs",
+        );
         setProducts(res.data);
         setfiltered(res.data);
       } catch (err) {
@@ -56,7 +58,7 @@ function IEMs() {
   const handleProductRemove = async (id) => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/product/IEMs/remove/${id}`,
+        `https://headphone-place.vercel.app/product/IEMs/remove/${id}`,
         {
           id,
         },

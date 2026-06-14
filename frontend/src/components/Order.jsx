@@ -15,7 +15,9 @@ function Order() {
 
     const fetchOrders = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/order/${user.uid}`);
+        const res = await axios.get(
+          `https://headphone-place.vercel.app/order/${user.uid}`,
+        );
         setOrders(res.data);
       } catch (err) {
         console.error("Error fetching orders:", err);

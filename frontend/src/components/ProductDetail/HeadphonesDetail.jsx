@@ -12,7 +12,7 @@ function HeadphonesDetail() {
     const getproductdetail = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/product/Headphones/${id}`,
+          `https://headphone-place.vercel.app/product/Headphones/${id}`,
         );
         setProductdetail(res.data);
       } catch (err) {
@@ -34,7 +34,7 @@ function HeadphonesDetail() {
     }
     console.log(user.uid);
     try {
-      await axios.post("http://localhost:3000/addtocart", {
+      await axios.post("https://headphone-place.vercel.app/addtocart", {
         userId: user.uid,
         productId: productdetail._id,
         productName: productdetail.name,

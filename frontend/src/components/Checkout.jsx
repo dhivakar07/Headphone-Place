@@ -27,7 +27,7 @@ function Checkout() {
         alert("Payment Successful! ID: " + res.razorpay_payment_id);
 
         try {
-          await axios.post("http://localhost:3000/order", {
+          await axios.post("https://headphone-place.vercel.app/order", {
             userId: user.uid,
             paymentId: res.razorpay_payment_id,
             cartdetails,
