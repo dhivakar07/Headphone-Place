@@ -65,6 +65,7 @@ const upload = multer({ storage });
 // Add Product
 app.post("/addproduct", upload.single("file"), async (req, res) => {
   try {
+    await connectDB();
     const { category, name, feature, description, price, offprice } = req.body;
 
     const Model = models[category];
@@ -102,6 +103,7 @@ app.post("/addproduct", upload.single("file"), async (req, res) => {
 // Add to Cart
 app.post("/addtocart", async (req, res) => {
   try {
+    await connectDB();
     const model = models["Cart"];
     const {
       userId,
@@ -141,6 +143,7 @@ app.post("/addtocart", async (req, res) => {
 // Get Cart Product
 app.post("/cart", async (req, res) => {
   try {
+    await connectDB();
     const model = models["Cart"];
     const { userId } = req.body;
     const cartItems = await model.find({ userId });
@@ -153,6 +156,7 @@ app.post("/cart", async (req, res) => {
 //Inc Product Qty in cart
 app.put("/cart/inc/:id", async (req, res) => {
   try {
+    await connectDB();
     const model = models["Cart"];
     const item = await model.findById(req.params.id);
     if (!item) {
@@ -169,6 +173,7 @@ app.put("/cart/inc/:id", async (req, res) => {
 //Dec Product Qty in cart
 app.put("/cart/dec/:id", async (req, res) => {
   try {
+    await connectDB();
     const model = models["Cart"];
     const item = await model.findById(req.params.id);
     if (!item) {
@@ -189,6 +194,7 @@ app.put("/cart/dec/:id", async (req, res) => {
 //Delete Product in cart
 app.delete("/cart/remove/:id", async (req, res) => {
   try {
+    await connectDB();
     const { id } = req.params;
     const model = models["Cart"];
     const deletedItem = await model.findByIdAndDelete(id);
@@ -204,6 +210,7 @@ app.delete("/cart/remove/:id", async (req, res) => {
 //Order Product store
 app.post("/order", async (req, res) => {
   try {
+    await connectDB();
     const { userId, paymentId, cartdetails, total } = req.body;
 
     const Order = models["Order"]; // make sure you registered this model
@@ -229,6 +236,7 @@ app.post("/order", async (req, res) => {
 // GET all orders for a user
 app.get("/order/:userId", async (req, res) => {
   try {
+    await connectDB();
     const { userId } = req.params;
     const Order = models["Order"];
     const orders = await Order.find({ userId });
@@ -261,6 +269,7 @@ app.get("/products/IEMs", async (req, res) => {
 // Get Headphones Products
 app.get("/products/Headphones", async (req, res) => {
   try {
+    await connectDB();
     const model = models["Headphones"];
     if (!model) {
       return res.status(400).json({ error: "Invalid category" });
@@ -277,6 +286,7 @@ app.get("/products/Headphones", async (req, res) => {
 // Get DACsAndAmps Products
 app.get("/products/DACsAndAmps", async (req, res) => {
   try {
+    await connectDB();
     const model = models["DACsAndAmps"];
     if (!model) {
       return res.status(400).json({ error: "Invalid category" });
@@ -293,6 +303,7 @@ app.get("/products/DACsAndAmps", async (req, res) => {
 //Remove IEMs Products
 app.delete("/product/IEMs/remove/:id", async (req, res) => {
   try {
+    await connectDB();
     const model = models["IEMs"];
     const { id } = req.params;
     const productDelete = await model.findByIdAndDelete(id);
@@ -309,6 +320,7 @@ app.delete("/product/IEMs/remove/:id", async (req, res) => {
 //Remove Headphones Product
 app.delete("/product/Headphones/remove/:id", async (req, res) => {
   try {
+    await connectDB();
     const model = models["Headphones"];
     const { id } = req.params;
     const productDelete = await model.findByIdAndDelete(id);
@@ -325,6 +337,7 @@ app.delete("/product/Headphones/remove/:id", async (req, res) => {
 //Remove DACsAndAmps Product
 app.delete("/product/DACsAndAmps/remove/:id", async (req, res) => {
   try {
+    await connectDB();
     const model = models["DACsAndAmps"];
     const { id } = req.params;
     const productDelete = await model.findByIdAndDelete(id);
@@ -340,41 +353,62 @@ app.delete("/product/DACsAndAmps/remove/:id", async (req, res) => {
 
 //Get Specific IEMs Product Details
 app.get("/product/IEMs/:id", async (req, res) => {
-  const { id } = req.params;
-
-  const model = models["IEMs"];
-  if (!model) {
-    return console.log("Invalid category");
+  try {
+    await connectDB();
+    const { id } = req.params;
+    const model = models["IEMs"];
+    if (!model) {
+      return res.status(400).json({ error: "Invalid category" });
+    }
+    const product = await model.findById(id);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.json(product);
+  } catch (err) {
+    console.error("Error fetching IEMs product:", err.message);
+    res.status(500).json({ error: "Server error" });
   }
-
-  const product = await model.findById(id);
-  res.json(product);
 });
 
 //Get Specific Headphones Product Details
 app.get("/product/Headphones/:id", async (req, res) => {
-  const { id } = req.params;
-
-  const model = models["Headphones"];
-  if (!model) {
-    return console.log("Invalid category");
+  try {
+    await connectDB();
+    const { id } = req.params;
+    const model = models["Headphones"];
+    if (!model) {
+      return res.status(400).json({ error: "Invalid category" });
+    }
+    const product = await model.findById(id);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.json(product);
+  } catch (err) {
+    console.error("Error fetching Headphones product:", err.message);
+    res.status(500).json({ error: "Server error" });
   }
-
-  const product = await model.findById(id);
-  res.json(product);
 });
 
 //Get Specific DACsAndAmps Product Details
 app.get("/product/DACsAndAmps/:id", async (req, res) => {
-  const { id } = req.params;
-
-  const model = models["DACsAndAmps"];
-  if (!model) {
-    return console.log("Invalid category");
+  try {
+    await connectDB();
+    const { id } = req.params;
+    const model = models["DACsAndAmps"];
+    if (!model) {
+      return res.status(400).json({ error: "Invalid category" });
+    }
+    const product = await model.findById(id);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.json(product);
+  } catch (err) {
+    console.error("Error fetching DACsAndAmps product:", err.message);
+    res.status(500).json({ error: "Server error" });
   }
-
-  const product = await model.findById(id);
-  res.json(product);
 });
 
 module.exports = app;

@@ -12,7 +12,7 @@ function IEMsDetail() {
     const getproductdetail = async () => {
       try {
         const res = await axios.get(
-          `https://headphone-place.vercel.app/product/IEMs/${id}`,
+          `https://headphone-place-one.vercel.app/product/IEMs/${id}`,
         );
         setProductdetail(res.data);
       } catch (err) {
@@ -34,7 +34,7 @@ function IEMsDetail() {
     }
     console.log(user.uid);
     try {
-      await axios.post("https://headphone-place.vercel.app/addtocart", {
+      await axios.post("https://headphone-place-one.vercel.app/addtocart", {
         userId: user.uid,
         productId: productdetail._id,
         productName: productdetail.name,

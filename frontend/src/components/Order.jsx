@@ -16,7 +16,7 @@ function Order() {
     const fetchOrders = async () => {
       try {
         const res = await axios.get(
-          `https://headphone-place.vercel.app/order/${user.uid}`,
+          `https://headphone-place-one.vercel.app/order/${user.uid}`,
         );
         setOrders(res.data);
       } catch (err) {

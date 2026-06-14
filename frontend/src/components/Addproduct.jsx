@@ -47,7 +47,7 @@ function Addproduct() {
     try {
       setadd(true);
       const res = await axios.post(
-        "https://headphone-place.vercel.app/addproduct",
+        "https://headphone-place-one.vercel.app/addproduct",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

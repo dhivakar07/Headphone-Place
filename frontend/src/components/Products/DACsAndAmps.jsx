@@ -26,7 +26,7 @@ function DACsAndAmps() {
     const getproduct = async () => {
       try {
         const res = await axios.get(
-          `https://headphone-place.vercel.app/products/DACsAndAmps`,
+          `https://headphone-place-one.vercel.app/products/DACsAndAmps`,
         );
         setProducts(res.data);
         setfiltered(res.data);
@@ -59,7 +59,7 @@ function DACsAndAmps() {
   const handleProductRemove = async (id) => {
     try {
       const res = await axios.delete(
-        `https://headphone-place.vercel.app/product/DACsAndAmps/remove/${id}`,
+        `https://headphone-place-one.vercel.app/product/DACsAndAmps/remove/${id}`,
         {
           id,
         },

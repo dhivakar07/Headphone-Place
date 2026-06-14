@@ -26,7 +26,7 @@ function Headphones() {
     const getproduct = async () => {
       try {
         const res = await axios.get(
-          `https://headphone-place.vercel.app/products/Headphones`,
+          `https://headphone-place-one.vercel.app/products/Headphones`,
         );
         setProducts(res.data);
         setfiltered(res.data);
@@ -59,7 +59,7 @@ function Headphones() {
   const handleProductRemove = async (id) => {
     try {
       const res = await axios.delete(
-        `https://headphone-place.vercel.app/product/Headphones/remove/${id}`,
+        `https://headphone-place-one.vercel.app/product/Headphones/remove/${id}`,
         {
           id,
         },

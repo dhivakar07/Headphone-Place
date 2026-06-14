@@ -14,7 +14,7 @@ function Cart() {
       try {
         if (!user) return;
         const res = await axios.post(
-          "https://headphone-place.vercel.app/cart",
+          "https://headphone-place-one.vercel.app/cart",
           {
             userId: user.uid,
           },
@@ -39,7 +39,7 @@ function Cart() {
   const handleInc = async (id) => {
     try {
       const res = await axios.put(
-        `https://headphone-place.vercel.app/cart/inc/${id}`,
+        `https://headphone-place-one.vercel.app/cart/inc/${id}`,
       );
       setcartdetails((prev) =>
         prev.map((item) =>
@@ -57,7 +57,7 @@ function Cart() {
   const handleDec = async (id) => {
     try {
       const res = await axios.put(
-        `https://headphone-place.vercel.app/cart/dec/${id}`,
+        `https://headphone-place-one.vercel.app/cart/dec/${id}`,
       );
       setcartdetails((prev) =>
         prev.map((item) =>
@@ -75,7 +75,7 @@ function Cart() {
   const handleRemove = async (id) => {
     try {
       const res = await axios.delete(
-        `https://headphone-place.vercel.app/cart/remove/${id}`,
+        `https://headphone-place-one.vercel.app/cart/remove/${id}`,
       );
       alert("Item removed from cart!");
       console.log(res.data);
