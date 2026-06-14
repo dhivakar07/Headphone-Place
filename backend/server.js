@@ -9,10 +9,17 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log("Failed to connect MongoDB: " + err));
+let isConnected = false;
+
+async function connectDB() {
+  if (isConnected) return;
+  await mongoose.connect(process.env.MONGODB_URI, {
+    serverSelectionTimeoutMS: 10000,
+    bufferCommands: false,
+  });
+  isConnected = true;
+  console.log("Connected to MongoDB");
+}
 
 const ProductSchema = new mongoose.Schema({
   category: String,
@@ -237,6 +244,7 @@ app.get("/order/:userId", async (req, res) => {
 // Get IEMs Products
 app.get("/products/IEMs", async (req, res) => {
   try {
+    await connectDB();
     const model = models["IEMs"];
     if (!model) {
       return res.status(400).json({ error: "Invalid category" });

@@ -26,7 +26,7 @@ function IEMs() {
     const getproduct = async () => {
       try {
         const res = await axios.get(
-          "https://headphone-place.vercel.app/products/IEMs",
+          "https://headphone-place-one.vercel.app/products/IEMs",
         );
         setProducts(res.data);
         setfiltered(res.data);
