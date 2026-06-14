@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../config/firebase";
 
@@ -72,9 +73,9 @@ function LoginPage() {
         <footer className="login_footer">
           <p>
             Don't have an account?
-            <a href="/signup" className="login_signup-link">
+            <Link to="/signup" className="login_signup-link">
               Sign up here
-            </a>
+            </Link>
           </p>
         </footer>
       </section>
