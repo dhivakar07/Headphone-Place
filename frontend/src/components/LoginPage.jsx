@@ -20,10 +20,8 @@ function LoginPage() {
       .then(() => {
         navigate("/home");
       })
-      .catch((err) => {
-        if (err.code === "auth/invalid-credential") {
-          setError("User not Registered. Please signup");
-        }
+      .catch(() => {
+        setError("User not Registered. Please signup");
       })
       .finally(() => {
         setLoading(false);
