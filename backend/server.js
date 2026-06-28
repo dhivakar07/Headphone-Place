@@ -215,10 +215,7 @@ app.post("/order", async (req, res) => {
     await connectDB();
     const { userId, paymentId, cartdetails, total } = req.body;
 
-    const Order = models["Order"]; // make sure you registered this model
-    if (!Order) {
-      return res.status(400).json({ error: "Order model not found" });
-    }
+    const Order = models["Order"];
 
     const order = await Order.create({
       userId,
@@ -256,9 +253,6 @@ app.get("/products/IEMs", async (req, res) => {
   try {
     await connectDB();
     const model = models["IEMs"];
-    if (!model) {
-      return res.status(400).json({ error: "Invalid category" });
-    }
 
     const products = await model.find();
     res.json(products);
@@ -273,9 +267,6 @@ app.get("/products/Headphones", async (req, res) => {
   try {
     await connectDB();
     const model = models["Headphones"];
-    if (!model) {
-      return res.status(400).json({ error: "Invalid category" });
-    }
 
     const products = await model.find();
     res.json(products);
@@ -290,9 +281,6 @@ app.get("/products/DACsAndAmps", async (req, res) => {
   try {
     await connectDB();
     const model = models["DACsAndAmps"];
-    if (!model) {
-      return res.status(400).json({ error: "Invalid category" });
-    }
 
     const products = await model.find();
     res.json(products);
@@ -359,9 +347,6 @@ app.get("/product/IEMs/:id", async (req, res) => {
     await connectDB();
     const { id } = req.params;
     const model = models["IEMs"];
-    if (!model) {
-      return res.status(400).json({ error: "Invalid category" });
-    }
     const product = await model.findById(id);
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
@@ -379,9 +364,6 @@ app.get("/product/Headphones/:id", async (req, res) => {
     await connectDB();
     const { id } = req.params;
     const model = models["Headphones"];
-    if (!model) {
-      return res.status(400).json({ error: "Invalid category" });
-    }
     const product = await model.findById(id);
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
@@ -399,9 +381,6 @@ app.get("/product/DACsAndAmps/:id", async (req, res) => {
     await connectDB();
     const { id } = req.params;
     const model = models["DACsAndAmps"];
-    if (!model) {
-      return res.status(400).json({ error: "Invalid category" });
-    }
     const product = await model.findById(id);
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
