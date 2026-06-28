@@ -117,21 +117,28 @@ app.post("/addtocart", async (req, res) => {
     } = req.body;
 
     const alreadyAdded = await model.findOne({ userId, productId });
-    if (!alreadyAdded) {
-      const cartItem = model.create({
-        userId,
-        productId,
-        productName,
-        productImg,
-        productPrice,
-        productOffprice,
-        plugtype,
-        quantity,
+
+    if (alreadyAdded) {
+      return res.json({
+        message: "Item already in cart",
+        cartItem: alreadyAdded,
       });
     }
-    res.status(201).json(cartItem);
-  } catch {
-    res.status(500).json({ error: err.message });
+
+    const cartItem = await model.create({
+      userId,
+      productId,
+      productName,
+      productImg,
+      productPrice,
+      productOffprice,
+      plugtype,
+      quantity,
+    });
+    return res.status(201).json({ message: "Item added to cart", cartItem });
+  } catch (err) {
+    console.error("Add to cart error:", err);
+    return res.status(500).json({ error: err.message });
   }
 });
 
