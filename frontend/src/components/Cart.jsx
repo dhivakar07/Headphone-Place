@@ -29,11 +29,9 @@ function Cart() {
   }, []);
 
   let total = 0;
-  if (Array.isArray(cartdetails)) {
-    cartdetails.forEach((item) => {
-      total += item.quantity * item.productOffprice;
-    });
-  }
+  cartdetails.forEach((item) => {
+    total += item.quantity * item.productOffprice;
+  });
 
   //handleInc
   const handleInc = async (id) => {

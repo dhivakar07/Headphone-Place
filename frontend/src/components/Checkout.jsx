@@ -35,7 +35,7 @@ function Checkout() {
           });
 
           console.log("Order saved successfully");
-          navigate("/order", { state: { cartdetails } });
+          navigate("/order");
         } catch (err) {
           console.error("Error saving order:", err);
           alert("Order save failed. Please contact support.");
